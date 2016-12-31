@@ -13,7 +13,7 @@ public class TAdmin {
 	private String lastLoginTime;
 	private String updateTime;
 	private String createTime;
-
+	
 	public Integer getId() {
 		return id;
 	}

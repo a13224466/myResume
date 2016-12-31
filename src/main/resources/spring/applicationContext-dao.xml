@@ -22,13 +22,15 @@
 		<property name="minIdle" value="5" />
 	</bean>
 	<!-- 配置sqlsessionFactory -->
-<!-- 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatisConfig.xml"></property>
 		<property name="dataSource" ref="dataSource"></property>
-	</bean> -->
+		<property name="typeAliasesPackage" value="tk.liaohongdong.pojo"></property>
+		<property name="mapperLocations" value="classpath:tk/liaohongdong/dao/*.xml"></property>
+	</bean>
 	<!-- 配置扫描包，加载mapper代理对象 -->
-<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.taotao.mapper"></property>
-	</bean> -->
-	<context:component-scan base-package="tk.liaohongdong.service.impl"></context:component-scan>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="tk.liaohongdong.dao"></property>
+	</bean>
+	<context:component-scan base-package="tk.liaohongdong.service"></context:component-scan>
 </beans>

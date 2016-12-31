@@ -6,6 +6,6 @@ import tk.liaohongdong.pojo.TAdmin;
 
 public interface TAdminDao {
 
-	List<TAdmin> findAll(TAdmin admin);
+	List<TAdmin> selectTadminAll();
 
 }

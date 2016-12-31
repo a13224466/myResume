@@ -1,0 +1,8 @@
+.content-item {
+	width: 100%;
+	text-align: center;
+	height: 50px;
+	vertical-align: middle;
+	visibility: inherit;
+	line-height: 50px;
+}

@@ -13,9 +13,12 @@
 
 	<mvc:annotation-driven />
 	
+	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
+	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
+
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/login"/>
+			<mvc:mapping path="/admin/login" />
 			<bean class="tk.liaohongdong.interceptor.TestInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

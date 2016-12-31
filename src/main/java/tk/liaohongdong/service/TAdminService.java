@@ -6,7 +6,6 @@ import tk.liaohongdong.pojo.TAdmin;
 
 public interface TAdminService {
 
-	List<TAdmin> findAll(TAdmin admin);
+	List<TAdmin> selectTadminAll();
 	
-	TAdmin findById(Integer id);
 }
