@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,91 +17,51 @@ import org.junit.Test;
 import net.sf.json.JSONObject;
 import tk.liaohongdong.wordbook.Wordbook;
 
-public class JokeApp {
+public class RobotApp {
 	public static final String DEF_CHATSET = "UTF-8";
 	public static final int DEF_CONN_TIMEOUT = 30000;
 	public static final int DEF_READ_TIMEOUT = 30000;
 	public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
-	// 1.按更新时间查询笑话
-	public static Object getRequest1() {
+	// 1.问答
+	public static Object getRequest1(String info) {
 		String result = null;
-		String url = "http://japi.juhe.cn/joke/content/list.from";// 请求接口地址
+		String url = "http://op.juhe.cn/robot/index";// 请求接口地址
 		Map params = new HashMap();// 请求参数
-		params.put("sort", "desc");// 类型，desc:指定时间之前发布的，asc:指定时间之后发布的
-		params.put("page", "");// 当前页数,默认1
-		params.put("pagesize", "20");// 每次返回条数,默认1,最大20
-		params.put("time", String.valueOf(new Date().getTime()).substring(0, 10));// 时间戳（10位），如：1418816972
-		params.put("key", Wordbook.JOKE_KEY);// 您申请的key
+		params.put("key", Wordbook.ROBOT_KEY);// 您申请到的本接口专用的APPKEY
+		params.put("info", info);// 要发送给机器人的内容，不要超过30个字符
+		params.put("dtype", "");// 返回的数据的格式，json或xml，默认为json
+		params.put("loc", "");// 地点，如北京中关村
+		params.put("lon", "");// 经度，东经116.234632（小数点后保留6位），需要写为116234632
+		params.put("lat", "");// 纬度，北纬40.234632（小数点后保留6位），需要写为40234632
+		params.put("userid", "");// 1~32位，此userid针对您自己的每一个用户，用于上下文的关联
 
 		try {
-			result = net(url, params, "GET");
+			result = net(url, params, "POST");
 			JSONObject object = JSONObject.fromObject(result);
 			if (object.getInt("error_code") == 0) {
-				return object.get("result");
+				System.out.println(object.get("result"));
 			} else {
-				return object.get("error_code") + ":" + object.get("reason");
+				System.out.println(object.get("error_code") + ":" + object.get("reason"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+	
+	@Test
+	public void a(){
+		getRequest1("深圳天气");
+	}
 
-	// 2.最新笑话
+	// 2.数据类型
 	public static void getRequest2() {
 		String result = null;
-		String url = "http://japi.juhe.cn/joke/content/text.from";// 请求接口地址
+		String url = "http://op.juhe.cn/robot/code";// 请求接口地址
 		Map params = new HashMap();// 请求参数
-		params.put("page", "");// 当前页数,默认1
-		params.put("pagesize", "20");// 每次返回条数,默认1,最大20
-		params.put("key", Wordbook.JOKE_KEY);// 您申请的key
-
-		try {
-			result = net(url, params, "GET");
-			JSONObject object = JSONObject.fromObject(result);
-			if (object.getInt("error_code") == 0) {
-				System.out.println(object.get("result"));
-			} else {
-				System.out.println(object.get("error_code") + ":" + object.get("reason"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// 3.按更新时间查询趣图
-	public static void getRequest3() {
-		String result = null;
-		String url = "http://japi.juhe.cn/joke/img/list.from";// 请求接口地址
-		Map params = new HashMap();// 请求参数
-		params.put("sort", "");// 类型，desc:指定时间之前发布的，asc:指定时间之后发布的
-		params.put("page", "");// 当前页数,默认1
-		params.put("pagesize", "20");// 每次返回条数,默认1,最大20
-		params.put("time", String.valueOf(new Date().getTime()).substring(0, 10));// 时间戳（10位），如：1418816972
-		params.put("key", Wordbook.JOKE_KEY);// 您申请的key
-
-		try {
-			result = net(url, params, "GET");
-			JSONObject object = JSONObject.fromObject(result);
-			if (object.getInt("error_code") == 0) {
-				System.out.println(object.get("result"));
-			} else {
-				System.out.println(object.get("error_code") + ":" + object.get("reason"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// 4.最新趣图
-	public static void getRequest4() {
-		String result = null;
-		String url = "http://japi.juhe.cn/joke/img/text.from";// 请求接口地址
-		Map params = new HashMap();// 请求参数
-		params.put("page", "");// 当前页数,默认1
-		params.put("pagesize", "");// 每次返回条数,默认1,最大20
-		params.put("key", Wordbook.JOKE_KEY);// 您申请的key
+		params.put("dtype", "");// 返回的数据格式，json或xml，默认json
+		params.put("key", Wordbook.ROBOT_KEY);// 您申请本接口的APPKEY，请在应用详细页查询
 
 		try {
 			result = net(url, params, "GET");
