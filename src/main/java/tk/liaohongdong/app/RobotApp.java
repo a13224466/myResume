@@ -24,7 +24,7 @@ public class RobotApp {
 	public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
 	// 1.问答
-	public static Object getRequest1(String info) {
+	public static String getRequest1(String info) {
 		String result = null;
 		String url = "http://op.juhe.cn/robot/index";// 请求接口地址
 		Map params = new HashMap();// 请求参数
